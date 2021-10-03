@@ -4,10 +4,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Row, Col, ListGroup, Image, Button, Card, ListGroupItem, FormControl } from 'react-bootstrap'
 import Message from '../components/Message'
 import { addToCart, removeFromCart } from '../actions/cartActions'
-import { STATES } from 'mongoose'
 
 
-const CartScreen = ({ match, location, hitory }) => {
+const CartScreen = ({ match, location, history }) => {
     const productId = match.params.id
 
     const qty = location.search ? Number(location.search.split('=')[1]) : 1
@@ -28,7 +27,7 @@ const CartScreen = ({ match, location, hitory }) => {
     }
 
     const checkoutHandler = (id) => {
-        console.log('checkout')
+        history.push('/login?redirect=shipping')
     }
 
     return (
