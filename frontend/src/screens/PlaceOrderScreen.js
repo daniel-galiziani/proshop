@@ -11,7 +11,7 @@ const PlaceOrderScreen = ({ history }) => {
 
     const dispatch = useDispatch()
 
-    const cart = useSelector(state => state.cart)
+    const cart = useSelector((state) => state.cart)
 
     const addDecimals = (num) => {
         return (Math.round(num * 100) / 100).toFixed(2)
@@ -20,7 +20,7 @@ const PlaceOrderScreen = ({ history }) => {
     //Calculate prices
     cart.itemsPrice = addDecimals(cart.cartItems.reduce((acc, item) => acc + item.price * item.qty, 0))
 
-    cart.shippingPrice = addDecimals(cart.itemsPrice > 100 ? 0 : 100)
+    cart.shippingPrice = addDecimals(cart.itemsPrice > 100 ? 0 : 35)
 
     cart.taxPrice = addDecimals(Number((0.20 * cart.itemsPrice).toFixed(2)))
 
@@ -30,7 +30,7 @@ const PlaceOrderScreen = ({ history }) => {
         Number(cart.taxPrice)).toFixed(2))
     
 
-    const orderCreate = useSelector(state => state.orderCreate)
+    const orderCreate = useSelector((state) => state.orderCreate)
     const { order, success, error } = orderCreate
 
     useEffect(() => {
@@ -140,14 +140,15 @@ const PlaceOrderScreen = ({ history }) => {
                                 </Row>
                             </ListGroup.Item>
 
-                            <ListGroup.Item>
-                                {error && <Message variant='danger'>{error}</Message>}
-                            </ListGroup.Item>
+                            
+                        
+                        {error && <Message variant='danger'>{error}</Message>}
+                            
 
                             <ListGroup.Item>
                                 <Button
                                     type='button'
-                                    className='btn-black col-12'
+                                    className='btn-block col-12'
                                     disabled={cart.cartItems === 0}
                                     onClick={placeOrderHandler} 
                                 >

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { Button, Row, Col, ListGroup, Image, Card} from 'react-bootstrap'
+import { Row, Col, ListGroup, Image, Card} from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
@@ -23,10 +23,9 @@ const OrderScreen = ({ match }) => {
     }
 
     useEffect(() => {
-        if(!order || order._id !== orderId) {
-            dispatch(getOrderDetails(orderId))
-        }
-    }, [order, orderId]) 
+        dispatch(getOrderDetails(orderId))
+        
+    }, [dispatch, order, orderId]) 
 
 
     
@@ -73,8 +72,9 @@ const OrderScreen = ({ match }) => {
 
                         <ListGroup.Item>
                             <h2>Order Items</h2>
-                            {order.orderItems.length === 0 ? <Message>Order is Empty</Message> 
-                            : ( 
+                            {order.orderItems.length === 0 ? (
+                             <Message>Order is Empty</Message> 
+                            ) : ( 
                                 <ListGroup variant='flush'>
                                     {order.orderItems.map((item, index) => (
                                         <ListGroup.Item key={index}>
