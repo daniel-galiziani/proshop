@@ -6,7 +6,7 @@ import generateToken from '../utils/generateToken.js';
 //@desc  Auth user & get Token
 //@route  POST /api/users/login
 //@access Public
-const authUser = asyncHandler(async (req, res, ) => {
+const autUser = asyncHandler(async (req, res, ) => {
   const { email, password } = req.body;
 
   const user = await User.findOne({ email })
@@ -34,7 +34,7 @@ const getUserProfile = asyncHandler(async (req, res, ) => {
   const user = await User.findById(req.user._id);
 
   if(user) {
-    res.status(200).json({
+    res.json({
       _id: user._id, 
       name: user.name, 
       email: user.email, 
@@ -120,4 +120,36 @@ const registerUser = asyncHandler(async (req, res, ) => {
   
 })
 
-export {authUser, getUserProfile, registerUser, updateUserProfile};
+//@desc  Auth user & get Token
+//@route  POST /api/users/login
+//@access Public
+const authUser = asyncHandler(async (req, res, ) => {
+  const { email, password } = req.body;
+
+  const user = await User.findOne({ email })
+
+  if(user && (user.matchPassword(password))) {
+    res.json({
+      _id: user._id, 
+      name: user.name, 
+      email: user.email, 
+      isAdmin: user.isAdmin,
+      token: generateToken(user._id),
+    })
+  } else {
+    res.status(401)
+    throw new Error('Invalid Email or Password');
+  }
+    
+})
+
+//@desc  Get all users
+//@route  GET /api/users
+//@access Private/Admin
+const getUsers = asyncHandler(async (req, res, ) => {
+  const users = await User.find({});
+  res.json(users)
+  
+})
+
+export {autUser, getUserProfile, registerUser, updateUserProfile, getUsers};
