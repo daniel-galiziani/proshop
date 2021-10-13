@@ -3,9 +3,9 @@ import User from '../models/userModel.js';
 import generateToken from '../utils/generateToken.js';
 
 
-//@desc  Auth user & get Token
-//@route  POST /api/users/login
-//@access Public
+// @desc  Auth user & get Token
+// @route  POST /api/users/login
+// @access Public
 const autUser = asyncHandler(async (req, res, ) => {
   const { email, password } = req.body;
 
@@ -26,9 +26,9 @@ const autUser = asyncHandler(async (req, res, ) => {
     
 })
 
-//@desc  Get User profile
-//@route  GET /api/users/profile
-//@access Private
+// @desc  Get User profile
+// @route  GET /api/users/profile
+// @access Private
 const getUserProfile = asyncHandler(async (req, res, ) => {
 
   const user = await User.findById(req.user._id);
@@ -50,9 +50,9 @@ const getUserProfile = asyncHandler(async (req, res, ) => {
 })
 
 
-//@desc  Update User profile
-//@route  PUT /api/users/profile
-//@access Private
+// @desc  Update User profile
+// @route  PUT /api/users/profile
+// @access Private
 const updateUserProfile = asyncHandler(async (req, res, ) => {
 
   const user = await User.findById(req.user._id);
@@ -84,9 +84,9 @@ const updateUserProfile = asyncHandler(async (req, res, ) => {
 
 
 
-//@desc  Register new User
-//@route  POST /api/users
-//@access Public
+// @desc  Register new User
+// @route  POST /api/users
+// @access Public
 const registerUser = asyncHandler(async (req, res, ) => {
 
   const {name, email, password} = req.body;
@@ -120,9 +120,9 @@ const registerUser = asyncHandler(async (req, res, ) => {
   
 })
 
-//@desc  Auth user & get Token
-//@route  POST /api/users/login
-//@access Public
+// @desc  Auth user & get Token
+// @route  POST /api/users/login
+// @access Public
 const authUser = asyncHandler(async (req, res, ) => {
   const { email, password } = req.body;
 
@@ -143,13 +143,37 @@ const authUser = asyncHandler(async (req, res, ) => {
     
 })
 
-//@desc  Get all users
-//@route  GET /api/users
-//@access Private/Admin
+
+// @desc  Get all users
+// @route  GET /api/users
+// @access Private/Admin
 const getUsers = asyncHandler(async (req, res, ) => {
   const users = await User.find({});
   res.json(users)
   
 })
 
-export {autUser, getUserProfile, registerUser, updateUserProfile, getUsers};
+// @desc  Delete users
+// @route  DELETE /api/users/:id
+// @access Private/Admin
+const deleteUser = asyncHandler(async (req, res, ) => {
+  const user = await User.findById(req.params.id);
+  if(user){
+    await user.remove()
+    res.json({ message: 'User Removed'})
+  } else {
+    res.status(404)
+    throw new Error('User Not Found')
+  }
+  
+})
+
+
+export {
+  autUser, 
+  getUserProfile, 
+  registerUser, 
+  updateUserProfile, 
+  getUsers, 
+  deleteUser
+};
