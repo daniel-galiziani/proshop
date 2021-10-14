@@ -172,9 +172,9 @@ const deleteUser = asyncHandler(async (req, res, ) => {
 // @route  GET /api/users/:id
 // @access Private/Admin
 const getUserById = asyncHandler(async (req, res, ) => {
-  const users = await User.findById(req.params.id).select('-password')
+  const user = await User.findById(req.params.id).select('-password')
   if (user) {
-    res.json(users)
+    res.json(user)
   } else {
     res.status(404)
     throw new Error('User Not Found')
