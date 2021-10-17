@@ -10,7 +10,7 @@ const ProductListScreen = ({ history, match }) => {
     const dispatch = useDispatch()
     
     const productList = useSelector(state => state.productList)
-    const { loading, error, produtcs } = productList
+    const { loading, error, products } = productList
 
     const productDelete = useSelector(state => state.productDelete)
     const { loading:loadingDelete, error:errorDelete, success:successDelete } = productDelete
@@ -32,7 +32,7 @@ const ProductListScreen = ({ history, match }) => {
         }
     }
 
-    const createProductHandler = (product) => {
+    const createProductHandler = () => {
         // CREATE PRODUCT
     }
 
@@ -64,7 +64,7 @@ const ProductListScreen = ({ history, match }) => {
                         </tr>
                     </thead>
                     <tbody>
-                        {produtcs.map((product) => (
+                        {products.map((product) => (
                             <tr key={product._id}>
                                 <td>{product._id}</td>
                                 <td>{product.name}</td>
