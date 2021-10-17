@@ -43,7 +43,7 @@ const ProductListScreen = ({ history, match }) => {
         dispatch(listProducts())
     }
 
-    }, [dispatch, history, userInfo, successDelete, successCreate, createProduct])
+    }, [dispatch, history, userInfo, successDelete, successCreate, createdProduct])
 
     const deleteHandler = (id) => {
         if (window.confirm('Are You Sure?')) {
@@ -61,10 +61,10 @@ const ProductListScreen = ({ history, match }) => {
                 <Col>
                     <h1>Products</h1>
                 </Col>
-                <Col className='text-right'>
-                    <Button className='my-3' onClick={createProductHandler}>
-                        <i className='fas fa-plus'></i> Create Product
-                    </Button>
+                <Col className='float-right'>
+                        <Button className='my-3' onClick={createProductHandler}>
+                            <i className='fas fa-plus'></i> Create Product
+                        </Button>
                 </Col>
             </Row>
             {loadingDelete && <Loader />}
