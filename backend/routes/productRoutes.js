@@ -5,15 +5,21 @@ import {
     getProductById, 
     deleteProduct,
     updatedProduct,
-    createdProduct, 
+    createdProduct,
+    createProductReview, 
 } from '../controllers/productController.js'
 import { protect, admin } from '../middleware/authMiddleware.js'
 
 
-router.route('/')
+router
+    .route('/')
     .get(getProducts)
     .post(protect, admin, createdProduct)
-router.route('/:id')
+router
+    .route('/:id/reviews')
+    .post(protect, createProductReview)
+router
+    .route('/:id')
     .get(getProductById)
     .delete(protect, admin, deleteProduct)
     .put(protect, admin, updatedProduct)
